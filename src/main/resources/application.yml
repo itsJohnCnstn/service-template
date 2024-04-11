@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: "${SPRING_DATASOURCE_URL}"
+    username: "${SPRING_DATASOURCE_USERNAME}"
+    password: "${SPRING_DATASOURCE_PASSWORD}"
+server:
+  port: "${PORT:8080}"
+
+---
+spring:
+  datasource:
+    url: "${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/service-template}"
+    username: "service-template"
+    password: "service-template"
+  jpa:
+    show-sql: "true"
+server:
+  port: "8081"

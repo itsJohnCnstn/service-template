@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent.*
+
 plugins {
 	java
 	id("org.springframework.boot") version "3.2.4"
@@ -17,7 +19,10 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.postgresql:postgresql:42.7.3")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.testcontainers:testcontainers:1.19.7")
 }
 
 tasks.withType<Test> {
