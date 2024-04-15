@@ -1,19 +1,25 @@
-spring:
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: "${SPRING_DATASOURCE_URL}"
-    username: "${SPRING_DATASOURCE_USERNAME}"
-    password: "${SPRING_DATASOURCE_PASSWORD}"
-server:
-  port: "${PORT:8080}"
-
 ---
+server:
+  port: 8080
+  error:
+    include-binding-errors: always
+    include-exception: true
+    include-message: always
+
 spring:
   datasource:
-    url: "${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/service-template}"
-    username: "service-template"
-    password: "service-template"
+    url: jdbc:postgresql://localhost:5432/template
+    username: template
+    password: template
+  main:
+    banner-mode: off
+  jackson:
+    default-property-inclusion: non_absent
+    locale: en_US
+    time-zone: UTC
+    serialization:
+      indent-output: true
   jpa:
-    show-sql: "true"
-server:
-  port: "8081"
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
