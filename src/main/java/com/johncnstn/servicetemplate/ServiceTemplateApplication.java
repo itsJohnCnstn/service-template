@@ -1,4 +1,4 @@
-package com.johncnstn;
+package com.johncnstn.servicetemplate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
