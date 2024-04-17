@@ -23,12 +23,19 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+
     implementation("org.postgresql:postgresql:42.7.3")
     implementation("org.flywaydb:flyway-core:10.11.0")
+	implementation("org.zalando:problem-spring-web:0.29.1")
+    implementation("org.apache.commons:commons-lang3")
+    implementation("org.jetbrains:annotations:24.1.0")
+    implementation("com.google.guava:guava:33.1.0-jre")
 
     runtimeOnly("org.flywaydb:flyway-database-postgresql:10.11.0")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.security:spring-security-test")
     testImplementation("org.testcontainers:testcontainers:1.19.7")
 }
 
