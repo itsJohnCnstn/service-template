@@ -1,4 +1,4 @@
-package com.johncnstn.servicetemplate.Controller;
+package com.johncnstn.servicetemplate.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

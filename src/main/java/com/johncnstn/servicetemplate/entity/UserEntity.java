@@ -1,4 +1,4 @@
-package com.johncnstn.servicetemplate.Entity;
+package com.johncnstn.servicetemplate.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
