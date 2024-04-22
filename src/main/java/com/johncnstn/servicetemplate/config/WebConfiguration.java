@@ -1,12 +1,11 @@
 package com.johncnstn.servicetemplate.config;
 
 import com.johncnstn.servicetemplate.exception.RestTemplateErrorHandler;
+import java.net.http.HttpClient;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
-
-import java.net.http.HttpClient;
 
 @Configuration
 public class WebConfiguration {
@@ -23,4 +22,3 @@ public class WebConfiguration {
         return restTemplateBuilder.errorHandler(errorHandler).build();
     }
 }
-

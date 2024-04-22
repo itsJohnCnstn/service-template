@@ -13,8 +13,4 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ContextConfiguration(initializers = {PostgresInitializer.class})
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public abstract class AbstractIntegrationTest {
-
-
-}
-
+public abstract class AbstractIntegrationTest {}

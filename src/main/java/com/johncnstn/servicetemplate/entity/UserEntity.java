@@ -1,11 +1,18 @@
 package com.johncnstn.servicetemplate.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.UUID;
-
 import static jakarta.persistence.GenerationType.AUTO;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -32,5 +39,4 @@ public class UserEntity extends AbstractBaseEntity {
 
     @Column(name = "description")
     private String description;
-
 }

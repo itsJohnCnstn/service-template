@@ -52,9 +52,9 @@ public class PostgresInitializer
     private static String getUrl() {
         return "jdbc:postgresql:"
                 + UriComponentsBuilder.newInstance()
-                .host(getHost())
-                .port(getPort())
-                .path(POSTGRES_DB)
-                .toUriString();
+                        .host(getHost())
+                        .port(getPort())
+                        .path(POSTGRES_DB)
+                        .toUriString();
     }
 }

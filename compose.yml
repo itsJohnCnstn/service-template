@@ -9,8 +9,6 @@ services:
 
   postgres:
     image: postgres:16.2-alpine
-    volumes:
-      - ./.docker-compose-resources/postgres:/docker-entrypoint-initdb.d
     environment:
       - POSTGRES_USER=template
       - POSTGRES_PASSWORD=template
