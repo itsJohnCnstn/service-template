@@ -1,0 +1,8 @@
+dependencies {
+    annotationProcessor "org.mapstruct:mapstruct-processor:${Versions.mapstruct}"
+    implementation "org.mapstruct:mapstruct-jdk8:${Versions.mapstruct}"
+}
+
+compileJava {
+    options.compilerArgs += ["-Amapstruct.unmappedTargetPolicy=ERROR"]
+}

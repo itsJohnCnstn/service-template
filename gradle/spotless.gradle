@@ -1,0 +1,19 @@
+apply plugin: 'java'
+
+spotless {
+    java {
+        target project.fileTree(project.rootDir) {
+            include '**/*.java'
+            exclude 'build/**'
+            exclude '.gradle/**'
+        }
+        // TODO fix version
+        googleJavaFormat('1.21.0').aosp()
+        importOrder()
+        removeUnusedImports()
+        formatAnnotations()
+        trimTrailingWhitespace()
+        endWithNewline()
+        lineEndings('UNIX')
+    }
+}

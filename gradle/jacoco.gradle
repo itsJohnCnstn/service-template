@@ -1,0 +1,53 @@
+jacoco {
+    toolVersion = "0.8.12"
+}
+
+def jacocoSkipFiles = ['com/johncnstn/servicetemplate/ServiceTemplateApplication.class',
+                       'com/johncnstn/servicetemplate/generated/*/**',
+                       'com/johncnstn/servicetemplate/config/**',
+                       'com/johncnstn/servicetemplate/exception/**',
+]
+
+jacocoTestReport {
+    reports {
+//        xml.required false
+//        csv.required false
+        html {
+            enabled true
+            destination new File("${buildDir}/reports/jacoco")
+        }
+    }
+    executionData(test)
+    afterEvaluate {
+        classDirectories.from = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: jacocoSkipFiles)
+        })
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0 // TODO change
+            }
+        }
+    }
+    executionData(test)
+    afterEvaluate {
+        classDirectories.from = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: jacocoSkipFiles)
+        })
+    }
+}
+
+jacocoTestCoverageVerification.dependsOn jacocoTestReport
+tasks.check.dependsOn(jacocoTestCoverageVerification)
+
+pmd {
+    ignoreFailures = false
+    consoleOutput = true
+    ruleSetFiles = files("$project.rootDir/config/checkstyle/pmd.xml")
+    toolVersion = '6.21.0'
+    ruleSets = []
+}
