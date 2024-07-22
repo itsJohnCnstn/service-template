@@ -32,3 +32,11 @@ ifeq ($(OS),Windows_NT)
 else
 	docker build --build-arg APP_VERSION=$(APP_VERSION_UNIX) -t $(DOCKER_IMAGE) .
 endif
+
+# Run only infra
+docker-compose-up-infra: build
+	docker-compose up -d
+
+# Run everything
+docker-compose-up-all: build
+	docker-compose --profile backend up -d --build
