@@ -1,5 +1,7 @@
 services:
-  service-template:
+
+  backend:
+    profiles: [ backend ]
     build: .
     environment:
       SERVER_PORT: 8080
