@@ -14,4 +14,7 @@ object Versions {
     const val springDataCommons = "3.2.5"
     const val testcontainers = "1.19.7"
 
+    const val springfoxSwaggerUi = "3.0.0"
+    const val swaggerAnnotations = "1.6.14"
+
 }

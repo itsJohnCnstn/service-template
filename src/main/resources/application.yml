@@ -23,3 +23,7 @@ spring:
     hibernate:
       ddl-auto: validate
     open-in-view: false
+
+springdoc:
+  swagger-ui:
+    use-root-path: true

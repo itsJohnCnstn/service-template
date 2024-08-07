@@ -37,6 +37,10 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("com.google.guava:guava:${Versions.guava}")
     implementation("io.hypersistence:hypersistence-utils-hibernate-63:${Versions.hibernateTypes}")
+    implementation("io.swagger:swagger-annotations:${Versions.swaggerAnnotations}")
+
+    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
 
     implementation("org.apache.commons:commons-lang3")
     implementation("org.postgresql:postgresql")
