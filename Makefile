@@ -35,7 +35,7 @@ endif
 
 # Run only infra
 docker-compose-up-infra: build
-	docker-compose up -d
+	docker-compose up -d --build
 
 # Run everything
 docker-compose-up-all: build

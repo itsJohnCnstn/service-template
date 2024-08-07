@@ -1,6 +1,8 @@
 dependencies {
+    implementation "org.mapstruct:mapstruct:${Versions.mapstruct}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${Versions.mapstruct}"
-    implementation "org.mapstruct:mapstruct-jdk8:${Versions.mapstruct}"
+
+    testAnnotationProcessor "org.mapstruct:mapstruct-processor:${Versions.mapstruct}"
 }
 
 compileJava {
