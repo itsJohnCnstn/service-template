@@ -1,10 +1,11 @@
 ---
 server:
-  port: 8080
+  port: "${PORT:8080}"
   error:
     include-binding-errors: always
     include-exception: true
     include-message: always
+    include-stacktrace: never
 
 spring:
   datasource:
@@ -23,6 +24,7 @@ spring:
     hibernate:
       ddl-auto: validate
     open-in-view: false
+    show-sql: true
 
 springdoc:
   swagger-ui:

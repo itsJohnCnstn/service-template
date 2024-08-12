@@ -9,8 +9,4 @@ public class ExceptionUtils {
     public static Supplier<NotFoundException> entityNotFound(String message) {
         return () -> new NotFoundException(message);
     }
-
-    public static Supplier<RuntimeException> badRequest(String message) {
-        return () -> new BadRequestException(message);
-    }
 }
