@@ -8,7 +8,10 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper
+@Mapper(
+        uses = {
+            JavaTimeMapper.class,
+        })
 public interface UserMapper {
 
     UserMapper USER_MAPPER = getMapper(UserMapper.class);
