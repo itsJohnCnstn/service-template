@@ -1,6 +1,7 @@
 package com.johncnstn.servicetemplate.exception;
 
 import com.google.common.collect.ImmutableMap;
+import com.johncnstn.servicetemplate.model.UnexpectedError;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -9,9 +10,12 @@ import org.jetbrains.annotations.NotNull;
 import org.postgresql.util.PSQLException;
 import org.postgresql.util.ServerErrorMessage;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.zalando.problem.DefaultProblem;
 import org.zalando.problem.Problem;
@@ -92,8 +96,7 @@ public class ExceptionHandling implements ProblemHandling {
             DataIntegrityViolationException ex, NativeWebRequest request) {
         Violation violation = null;
         var rootCause = ExceptionUtils.getRootCause(ex);
-        if (rootCause instanceof PSQLException) {
-            var psqlException = (PSQLException) rootCause;
+        if (rootCause instanceof PSQLException psqlException) {
             if (PSQL_ERRORS.containsKey(psqlException.getSQLState())) {
                 violation =
                         PSQL_ERRORS
@@ -107,5 +110,12 @@ public class ExceptionHandling implements ProblemHandling {
         }
         var violations = List.of(violation);
         return newConstraintViolationProblem(ex, violations, request);
+    }
+
+    //TODO refactor with problem handling
+    @ExceptionHandler(value = NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public @ResponseBody UnexpectedError handleNotFoundException(NotFoundException ex) {
+        return new UnexpectedError(HttpStatus.NOT_FOUND.value(), ex.getMessage());
     }
 }
