@@ -10,6 +10,7 @@ public class RestTemplateErrorHandler extends DefaultResponseErrorHandler {
 
     @Override
     public void handleError(ClientHttpResponse response) throws IOException {
+
         super.handleError(response);
     }
 }
