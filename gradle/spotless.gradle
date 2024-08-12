@@ -8,7 +8,7 @@ spotless {
             exclude '.gradle/**'
         }
         // TODO fix version
-        googleJavaFormat('1.21.0').aosp()
+        googleJavaFormat('1.23.0').aosp()
         importOrder()
         removeUnusedImports()
         formatAnnotations()

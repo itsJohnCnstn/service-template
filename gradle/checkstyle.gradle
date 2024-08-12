@@ -2,7 +2,7 @@ checkstyle {
     ignoreFailures = false
     showViolations = true
 
-    project.ext.checkstyleVersion = '10.15.0'
+    project.ext.checkstyleVersion = '10.17.0'
     project.ext.sevntuChecksVersion = '1.44.1'
 
     dependencies {
