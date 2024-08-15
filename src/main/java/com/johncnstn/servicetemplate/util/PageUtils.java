@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 @UtilityClass
-public final class PagingUtils {
+public final class PageUtils {
 
     public static Pageable toPageable(int page, int size) {
         return toPageable(page, size, Sort.unsorted());
