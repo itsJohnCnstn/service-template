@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Validated
 @Api(value = "Users")
-public interface UsersApi {
+public interface UserApi {
 
     String createUserPath = "/api/v1/users";
     String deleteUserPath = "/api/v1/users/{id}";

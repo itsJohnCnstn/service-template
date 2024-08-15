@@ -2,7 +2,7 @@ package com.johncnstn.servicetemplate.service.impl;
 
 import static com.johncnstn.servicetemplate.exception.ExceptionUtils.entityNotFound;
 import static com.johncnstn.servicetemplate.mapper.UserMapper.USER_MAPPER;
-import static com.johncnstn.servicetemplate.util.PagingUtils.toPageable;
+import static com.johncnstn.servicetemplate.util.PageUtils.toPageable;
 
 import com.johncnstn.servicetemplate.model.User;
 import com.johncnstn.servicetemplate.repository.UserRepository;
