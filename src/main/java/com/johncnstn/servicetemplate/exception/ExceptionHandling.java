@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 import org.zalando.problem.DefaultProblem;
 import org.zalando.problem.Problem;
 import org.zalando.problem.spring.web.advice.ProblemHandling;
@@ -112,7 +113,14 @@ public class ExceptionHandling implements ProblemHandling {
         return newConstraintViolationProblem(ex, violations, request);
     }
 
-    //TODO refactor with problem handling
+    // TODO refactor with problem handling
+    @ExceptionHandler(value = NoResourceFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public @ResponseBody UnexpectedError handleNoResourceFoundException(
+            NoResourceFoundException ex) {
+        return new UnexpectedError(HttpStatus.NOT_FOUND.value(), ex.getMessage());
+    }
+
     @ExceptionHandler(value = NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public @ResponseBody UnexpectedError handleNotFoundException(NotFoundException ex) {
