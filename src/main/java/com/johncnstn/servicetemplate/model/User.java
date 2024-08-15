@@ -1,11 +1,12 @@
 package com.johncnstn.servicetemplate.model;
 
+import java.time.OffsetDateTime;
 import java.util.UUID;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
+@Builder
 public class User {
     private UUID id;
 
@@ -16,4 +17,10 @@ public class User {
     private String email;
 
     private String description;
+
+    private OffsetDateTime createdAt;
+
+    private OffsetDateTime updatedAt;
+
+    private OffsetDateTime deletedAt;
 }
