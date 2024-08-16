@@ -3,10 +3,10 @@ package com.johncnstn.servicetemplate.model;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
 @Builder
+@Getter
 public class User {
     private UUID id;
 

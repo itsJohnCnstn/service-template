@@ -60,6 +60,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(readOnly = true)
     public Page<User> getAll(Integer page, Integer size) {
+
         var pageable = toPageable(page, size);
         return userRepository.findAllNotDeleted(pageable).map(USER_MAPPER::toModel);
     }
