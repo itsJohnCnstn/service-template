@@ -1,5 +1,6 @@
 package com.johncnstn.servicetemplate.initializer;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -29,12 +30,12 @@ public class PostgresInitializer
     }
 
     @Override
-    public void initialize(ConfigurableApplicationContext applicationContext) {
+    public void initialize(@NotNull ConfigurableApplicationContext applicationContext) {
         applyProperties(applicationContext);
     }
 
     private static String getHost() {
-        return POSTGRES.getContainerIpAddress();
+        return POSTGRES.getHost();
     }
 
     private static int getPort() {

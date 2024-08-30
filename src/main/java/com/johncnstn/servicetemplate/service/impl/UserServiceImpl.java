@@ -27,8 +27,8 @@ public class UserServiceImpl implements UserService {
         var userToCreate = USER_MAPPER.toEntity(user);
 
         // TODO add check on email constraints violation
-
         var savedUser = userRepository.saveAndFlush(userToCreate);
+        log.debug("Getting user with id {} ", savedUser.getId());
         return USER_MAPPER.toModel(savedUser);
     }
 

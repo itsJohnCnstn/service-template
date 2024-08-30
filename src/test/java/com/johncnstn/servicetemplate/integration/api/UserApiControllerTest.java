@@ -7,7 +7,6 @@ import static com.johncnstn.servicetemplate.controller.api.UserApi.listUsersPath
 import static com.johncnstn.servicetemplate.controller.api.UserApi.updateUserPath;
 import static com.johncnstn.servicetemplate.util.PathUtils.generatePath;
 import static com.johncnstn.servicetemplate.util.TestUtils.user;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -181,7 +180,7 @@ public class UserApiControllerTest extends AbstractIntegrationTest {
         resultActions.andExpect(status().isNoContent());
     }
 
-    //endregion
+    // endregion
 
     private void assertUser(User actual, User expected) {
         assertSoftly(

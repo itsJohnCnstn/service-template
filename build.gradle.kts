@@ -52,6 +52,8 @@ dependencies {
     implementation("org.yaml:snakeyaml")
     implementation("org.zalando:problem-spring-web:${Versions.problemSpringWeb}")
 
+    implementation("org.springframework.kafka:spring-kafka:${Versions.springKafka}")
+
     runtimeOnly("org.flywaydb:flyway-database-postgresql:${Versions.flyway}")
     runtimeOnly("javax.xml.bind:jaxb-api:2.3.1")
 
@@ -66,6 +68,7 @@ dependencies {
     }
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation("org.testcontainers:testcontainers:${Versions.testcontainers}")
+    testImplementation("org.testcontainers:kafka")
 }
 
 configurations {
