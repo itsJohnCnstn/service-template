@@ -4,8 +4,8 @@ import static com.johncnstn.servicetemplate.kafka.EventApi.createEventPath;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.johncnstn.servicetemplate.kafka.model.KafkaEvent;
 import com.johncnstn.servicetemplate.integration.AbstractIntegrationTest;
+import com.johncnstn.servicetemplate.kafka.model.KafkaEvent;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
