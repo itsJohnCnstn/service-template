@@ -9,7 +9,9 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data  # Persist Postgres data
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend-network
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
@@ -18,14 +20,16 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
     volumes:
-      - zookeeper_data:/var/lib/zookeeper/data  # Persist Zookeeper data
-      - zookeeper_log:/var/lib/zookeeper/log  # Persist Zookeeper logs
+      - zookeeper_data:/var/lib/zookeeper/data
+      - zookeeper_log:/var/lib/zookeeper/log
+    networks:
+      - kafka-network
 
   kafka:
     image: confluentinc/cp-kafka:latest
     ports:
-      - "9092:9092"      # External access port
-      - "29092:29092"    # Internal Docker network port
+      - "9092:9092"
+      - "29092:29092"
     environment:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: |
@@ -38,7 +42,9 @@ services:
     depends_on:
       - zookeeper
     volumes:
-      - kafka_data:/var/lib/kafka/data  # Persist Kafka data
+      - kafka_data:/var/lib/kafka/data
+    networks:
+      - kafka-network
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
@@ -50,6 +56,30 @@ services:
       - 8090:8080
     depends_on:
       - kafka
+    networks:
+      - kafka-network
+
+  cassandra:
+    image: cassandra:latest
+#    container_name: cassandra
+    ports:
+      - "9042:9042"
+    environment:
+#      - CASSANDRA_CONTACT_POINTS=cassandra
+      - CASSANDRA_DC=datacenter1
+      - CASSANDRA_RACK=rack1
+    healthcheck:
+      test: [ "CMD", "cqlsh", "-e", "describe keyspaces" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - cassandra_data:/var/lib/cassandra  # Persist Cassandra data
+      - ./init.cql:/docker-entrypoint-initdb.d/init.cql
+#      - ./custom-entrypoint.sh:/custom-entrypoint.sh
+#    entrypoint: [ "bash", "/custom-entrypoint.sh" ]
+    networks:
+      - cassandra-network
 
   backend:
     profiles: [ backend ]
@@ -62,9 +92,23 @@ services:
     depends_on:
       - postgres
       - kafka
+      - cassandra
+    networks:
+      - backend-network
+      - kafka-network
+      - cassandra-network
 
 volumes:
   postgres_data:
   zookeeper_data:
   zookeeper_log:
   kafka_data:
+  cassandra_data:
+
+networks:
+  kafka-network:
+    driver: bridge
+  backend-network:
+    driver: bridge
+  cassandra-network:
+    driver: bridge

@@ -25,6 +25,23 @@ spring:
       ddl-auto: validate
     open-in-view: false
     show-sql: true
+
+  cassandra:
+    contact-points: localhost
+    keyspace-name: service_template
+#    schema-action: CREATE_IF_NOT_EXISTS
+    port: 9042
+    local-datacenter: datacenter1
+    connection:
+      connect-timeout: 10s
+      heartbeat-interval: 30s
+      pool:
+        local:
+          size: 4
+      request:
+         timeout: 30s# The data center to use
+    schema-action: create_if_not_exists
+
   kafka:
     bootstrap-servers: "${SPRING_KAFKA_BOOTSTRAP_SERVERS:localhost:9092}"
     consumer:
@@ -33,7 +50,7 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.UUIDDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
     properties:
-      spring.json.trusted.packages: com.johncnstn.servicetemplate.event.model # change this with your event packages
+      spring.json.trusted.packages: com.johncnstn.servicetemplate.kafka.model # change this with your event packages
     producer:
       key-serializer: org.apache.kafka.common.serialization.UUIDSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer

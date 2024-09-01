@@ -13,6 +13,7 @@ object Versions {
     const val springBoot = "3.2.4"
     const val springDataCommons = "3.2.5"
     const val testcontainers = "1.19.7"
+    const val cassandra = "4.17.0"
 
     const val swaggerAnnotations = "1.6.14"
 

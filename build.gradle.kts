@@ -45,6 +45,11 @@ dependencies {
     implementation("org.apache.commons:commons-lang3")
     implementation("org.postgresql:postgresql")
     implementation("org.flywaydb:flyway-core:${Versions.flyway}")
+
+    implementation("org.springframework.boot:spring-boot-starter-data-cassandra")
+    implementation("com.datastax.oss:java-driver-core:${Versions.cassandra}")
+
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-hateoas")
     implementation("org.springframework.boot:spring-boot-starter-undertow")
