@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.johncnstn.servicetemplate.initializer.CassandraInitializer;
 import com.johncnstn.servicetemplate.initializer.KafkaInitializer;
 import com.johncnstn.servicetemplate.initializer.PostgresInitializer;
 import com.johncnstn.servicetemplate.model.User;
@@ -29,10 +30,16 @@ import org.springframework.test.web.servlet.ResultActions;
 
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-@ContextConfiguration(initializers = {PostgresInitializer.class, KafkaInitializer.class})
+@ContextConfiguration(
+        initializers = {
+            PostgresInitializer.class,
+            CassandraInitializer.class,
+            KafkaInitializer.class
+        })
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public abstract class AbstractIntegrationTest {
+
     @Autowired protected MockMvc mockMvc;
 
     @Autowired protected ObjectMapper objectMapper;

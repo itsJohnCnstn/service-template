@@ -39,7 +39,7 @@ spring:
         local:
           size: 4
       request:
-         timeout: 30s# The data center to use
+         timeout: 30s # The data center to use
     schema-action: create_if_not_exists
 
   kafka:
