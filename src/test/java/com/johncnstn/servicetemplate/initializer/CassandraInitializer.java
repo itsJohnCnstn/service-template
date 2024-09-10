@@ -11,7 +11,7 @@ public class CassandraInitializer
         implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     private static final CassandraContainer<?> cassandraContainer =
-            new CassandraContainer<>("cassandra:4.0");
+            new CassandraContainer<>("cassandra:4.17.0");
 
     static {
         cassandraContainer.start(); // Start the container before initializing the context
@@ -26,6 +26,7 @@ public class CassandraInitializer
         cassandraProperties.put(
                 "spring.data.cassandra.port", cassandraContainer.getFirstMappedPort());
         cassandraProperties.put("spring.data.cassandra.local-datacenter", "datacenter1");
+//        cassandraProperties.put("spring.data.cassandra.keyspace-name", "service_template");
         // Add the Cassandra properties to the Spring Environment
         applicationContext
                 .getEnvironment()

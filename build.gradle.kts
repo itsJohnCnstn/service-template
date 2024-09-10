@@ -66,15 +66,16 @@ dependencies {
     testImplementation("com.github.javafaker:javafaker:${Versions.javafaker}") {
         exclude("org.yaml")
     }
+    testImplementation("org.testcontainers:junit-jupiter:1.18.3")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${Versions.junitJupiterEngine}")
     testImplementation("org.awaitility:awaitility:${Versions.awaitility}")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:${Versions.junitJupiterEngine}")
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude("org.junit.vintage:junit-vintage-engine")
-    }
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation("org.testcontainers:testcontainers:${Versions.testcontainers}")
     testImplementation("org.testcontainers:kafka")
     testImplementation("org.testcontainers:cassandra:1.20.1")
+
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${Versions.junitJupiterEngine}")
 
 }
 
