@@ -27,10 +27,9 @@ spring:
     show-sql: true
 
   cassandra:
-    contact-points: localhost
-    keyspace-name: service_template
-#    schema-action: CREATE_IF_NOT_EXISTS
-    port: 9042
+    contact-points: "${SPRING_DATA_CASSANDRA_CONTACT_POINTS:localhost}"
+    keyspace-name: "${SPRING_DATA_CASSANDRA_KEYSPACE:service_template}"
+    port: "${SPRING_DATA_CASSANDRA_PORT:9042}"
     local-datacenter: datacenter1
     connection:
       connect-timeout: 10s

@@ -73,7 +73,7 @@ dependencies {
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation("org.testcontainers:testcontainers:${Versions.testcontainers}")
     testImplementation("org.testcontainers:kafka")
-    testImplementation("org.testcontainers:cassandra:1.20.1")
+    testImplementation("org.testcontainers:cassandra")
 
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${Versions.junitJupiterEngine}")
 

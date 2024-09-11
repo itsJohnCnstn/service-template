@@ -1,36 +1,50 @@
 package com.johncnstn.servicetemplate.initializer;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.core.env.MapPropertySource;
 import org.testcontainers.containers.CassandraContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
 
 public class CassandraInitializer
         implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
-    private static final CassandraContainer<?> cassandraContainer =
-            new CassandraContainer<>("cassandra:4.17.0");
+    private static final int CASSANDRA_PORT = 9042;
+    private static final String CASSANDRA_VERSION = "4.1.6";
+    private static final String CASSANDRA_DATACENTER = "datacenter1";
+    private static final String CASSANDRA_KEYSPACE = "service_template";
+
+    private static final CassandraContainer<?> CASSANDRA_CONTAINER =
+            new CassandraContainer<>("cassandra:" + CASSANDRA_VERSION)
+                    .withExposedPorts(CASSANDRA_PORT).waitingFor(Wait.forListeningPort());
 
     static {
-        cassandraContainer.start(); // Start the container before initializing the context
+        CASSANDRA_CONTAINER.start(); // Start the container before initializing the context
     }
 
     @Override
-    public void initialize(ConfigurableApplicationContext applicationContext) {
-        // Dynamically set the contact points and port for Cassandra
-        Map<String, Object> cassandraProperties = new HashMap<>();
-        cassandraProperties.put(
-                "spring.data.cassandra.contact-points", cassandraContainer.getHost());
-        cassandraProperties.put(
-                "spring.data.cassandra.port", cassandraContainer.getFirstMappedPort());
-        cassandraProperties.put("spring.data.cassandra.local-datacenter", "datacenter1");
-//        cassandraProperties.put("spring.data.cassandra.keyspace-name", "service_template");
-        // Add the Cassandra properties to the Spring Environment
-        applicationContext
-                .getEnvironment()
-                .getPropertySources()
-                .addFirst(new MapPropertySource("cassandraTestProperties", cassandraProperties));
+    public void initialize(@NotNull ConfigurableApplicationContext applicationContext) {
+        applyProperties(applicationContext);
     }
+
+    private void applyProperties(ConfigurableApplicationContext applicationContext) {
+        TestPropertyValues.of(
+                        "spring.data.cassandra.contact-points=" + getHost(),
+                        "spring.data.cassandra.port=" + getPort(),
+                        "spring.data.cassandra.local-datacenter=" + CASSANDRA_DATACENTER,
+                        "spring.data.cassandra.keyspace-name=" + CASSANDRA_KEYSPACE,
+                        "spring.data.cassandra.schema-action=create-if-not-exists")
+                .applyTo(applicationContext);
+        System.out.println("Cassandra running on: " + getHost() + ":" + getPort());
+    }
+
+    private static String getHost() {
+        return CASSANDRA_CONTAINER.getHost();
+    }
+
+    private static int getPort() {
+        return CASSANDRA_CONTAINER.getFirstMappedPort();
+    }
+
 }
