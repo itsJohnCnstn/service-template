@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+// @EnableCassandraRepositories(basePackages = "com.johncnstn.servicetemplate.repository")
 @SpringBootApplication(exclude = ErrorMvcAutoConfiguration.class)
 @EnableJpaAuditing(dateTimeProviderRef = "auditingDateTimeProvider")
 public class ServiceTemplateApplication {

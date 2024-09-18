@@ -1,0 +1,8 @@
+#---
+#spring:
+#  cassandra:
+#    keyspace-name: ${CASSANDRA_KEYSPACE_NAME:}
+#    contact-points: ${CASSANDRA_CONTACT_POINTS:}
+#    port: ${CASSANDRA_PORT:}
+#    local-datacenter: datacenter1
+#    schema-action: create_if_not_exists

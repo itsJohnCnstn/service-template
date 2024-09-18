@@ -33,7 +33,7 @@ import org.springframework.test.web.servlet.ResultActions;
 @ContextConfiguration(
         initializers = {
             PostgresInitializer.class,
-//            CassandraInitializer.class,
+            CassandraInitializer.class,
             KafkaInitializer.class
         })
 @ExtendWith(SpringExtension.class)

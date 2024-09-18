@@ -1,5 +1,7 @@
 package com.johncnstn.servicetemplate.initializer;
 
+import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.Session;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContextInitializer;
@@ -7,6 +9,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.testcontainers.containers.CassandraContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 
+// @Testcontainers
 public class CassandraInitializer
         implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
@@ -15,12 +18,13 @@ public class CassandraInitializer
     private static final String CASSANDRA_DATACENTER = "datacenter1";
     private static final String CASSANDRA_KEYSPACE = "service_template";
 
-    private static final CassandraContainer<?> CASSANDRA_CONTAINER =
+    private static final CassandraContainer<?> cassandra =
             new CassandraContainer<>("cassandra:" + CASSANDRA_VERSION)
-                    .withExposedPorts(CASSANDRA_PORT).waitingFor(Wait.forListeningPort());
+                    .withExposedPorts(CASSANDRA_PORT)
+                    .waitingFor(Wait.forListeningPort());
 
     static {
-        CASSANDRA_CONTAINER.start(); // Start the container before initializing the context
+        cassandra.start(); // Start the container before initializing the context
     }
 
     @Override
@@ -30,21 +34,30 @@ public class CassandraInitializer
 
     private void applyProperties(ConfigurableApplicationContext applicationContext) {
         TestPropertyValues.of(
-                        "spring.data.cassandra.contact-points=" + getHost(),
-                        "spring.data.cassandra.port=" + getPort(),
-                        "spring.data.cassandra.local-datacenter=" + CASSANDRA_DATACENTER,
-                        "spring.data.cassandra.keyspace-name=" + CASSANDRA_KEYSPACE,
-                        "spring.data.cassandra.schema-action=create-if-not-exists")
+                        "spring.cassandra.contact-points:" + getHost(),
+                        "spring.cassandra.port:" + getPort(),
+                        "spring.cassandra.local-datacenter:" + CASSANDRA_DATACENTER,
+                        "spring.cassandra.keyspace-name:" + CASSANDRA_KEYSPACE,
+                        "spring.cassandra.schema-action: create-if-not-exists")
                 .applyTo(applicationContext);
-        System.out.println("Cassandra running on: " + getHost() + ":" + getPort());
+        createKeyspace(cassandra.getCluster());
     }
 
     private static String getHost() {
-        return CASSANDRA_CONTAINER.getHost();
+        return cassandra.getHost();
     }
 
     private static int getPort() {
-        return CASSANDRA_CONTAINER.getFirstMappedPort();
+        return cassandra.getFirstMappedPort();
     }
 
+    static void createKeyspace(Cluster cluster) {
+        try (Session session = cluster.connect()) {
+            session.execute(
+                    "CREATE KEYSPACE IF NOT EXISTS "
+                            + CASSANDRA_KEYSPACE
+                            + " WITH replication = \n"
+                            + "{'class':'SimpleStrategy','replication_factor':'1'};");
+        }
+    }
 }
